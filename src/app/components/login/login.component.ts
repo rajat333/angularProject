@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl , Validators} from '@angular/forms';
 import {  Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private login: FormBuilder, private route: Router) { }
+  constructor(private login: FormBuilder,private service: AuthService, private route: Router) { }
 
   ngOnInit() {
     console.log('>>>>>.NGONIT>>>>>>>>>');
@@ -31,7 +33,10 @@ export class LoginComponent implements OnInit {
  onSubmit(){
    console.log('>>>ON>>>Submit>>>>>>>');
   console.warn(this.loginForm.value);
-  this.route.navigate(['/register']);
+  this.service.loginAPI(this.loginForm.value).subscribe( data =>{
+    console.log('>>>>>data>>>>>>>',data);
+  });   
+  // this.route.navigate(['/register']);
   
  }
 

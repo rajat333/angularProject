@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormArray , FormBuilder , Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,35 +9,36 @@ import { FormArray , FormBuilder , Validators} from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
 
-  profileForm: any;
+  myForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-
-      this.profileForm = this.fb.group({
-        firstName: ['', Validators.required],
-        lastName: [''],
-        address: this.fb.group({
-          street: [''],
-          city: [''],
-          state: [''],
-          zip: ['']
-        }),
-        aliases: this.fb.array([
-          this.fb.control('')
-        ])
-      });
+    this.myForm = this.fb.group({
+      email: '',
+      phones: this.fb.array([ ])
+    })
+  
+  }
+  
+  get phoneForms() {
+    return this.myForm.get('phones') as FormArray
+  }
+  
+  addPhone() {
+  
+    const phone = this.fb.group({ 
+      area: [],
+      prefix: [],
+      line: [],
+    })
+  
+    this.phoneForms.push(phone);
+  }
+  
+  deletePhone(i) {
+    this.phoneForms.removeAt(i)
   }
 
-  get aliases() {
-    console.log('>>>In getting form Array');
-    return this.profileForm.get('aliases') as FormArray;
-  }
-
-  addAlias() {
-    console.log('>>>Adding Alias>>>>');
-    this.aliases.push(this.fb.control(''));
-  }
 
 }

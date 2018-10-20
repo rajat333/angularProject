@@ -1,16 +1,25 @@
 
-<div formArrayName="aliases">
+
   <p>
     dashboard works!
   </p>
-  <h3>Aliases</h3> <button (click)="addAlias()">Add Alias</button>
 
-  <div *ngFor="let address of aliases.controls; let i=index">
-    <!-- The repeated alias template -->
-    <label>
-      Alias:
-      {{ i }}
-      <input type="text" [formControlName]="firstName">
-    </label>
-  </div>
-</div>
+  <form [formGroup]="myForm">
+  
+    <div formArrayName="phones">
+  
+        <div *ngFor="let phone of phoneForms.controls; let i=index" 
+              [formGroupName]="i">
+  
+            <input formControlName="area">
+            <input formControlName="prefix">
+            <input formControlName="line">
+  
+            <button (click)="deletePhone(i)">Delete</button>
+  
+        </div>
+    </div>
+  
+    <button (click)="addPhone()">Add Phone Number</button>
+  
+  </form>

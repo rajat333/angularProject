@@ -32,11 +32,12 @@ export class DashboardComponent implements OnInit {
       prefix: [],
       line: [],
     })
-  
+    console.log('>>>>phone>>>>>',phone);
     this.phoneForms.push(phone);
   }
   
   deletePhone(i) {
+    console.log('>>>>index>>>>>',i);
     this.phoneForms.removeAt(i)
   }
 

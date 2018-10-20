@@ -15,7 +15,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AuthService } from './services/auth.service';
 
 
@@ -25,7 +24,7 @@ import { AuthService } from './services/auth.service';
     LoginComponent,
     RegisterComponent,
     PageNotFoundComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

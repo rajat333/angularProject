@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   this.service.loginAPI(this.loginForm.value).subscribe( data =>{
     console.log('>>>>>data>>>>>>>',data);
   });   
-  // this.route.navigate(['/register']);
+  this.route.navigate(['/dashboard']);
   
  }
 

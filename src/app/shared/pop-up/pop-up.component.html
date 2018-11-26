@@ -1,3 +1,21 @@
-<p>
-  pop-up works!
-</p>
+<div>
+  <p> Pop Up Works </p>
+  <div class="modal-popup" *ngIf="enablePopup">
+  <div class="modal-popup-info">
+
+
+    <div class="info-content">
+      <img class="success-img" src="../assets/images/thumbsdown-pop-up.svg" alt="">
+      <h3>Oops! </h3>
+      <p>{{responseMessage}}</p>
+      <button value="Got it" class="btn blue" (click)="closePopUp()">Got it</button>
+    </div>
+
+    <div class="close-icon">
+      <a (click)="closePopUp()">
+        <img src="../assets/images/pop-close-icon.svg" alt="">
+      </a>
+    </div>
+  </div>
+</div>
+</div>

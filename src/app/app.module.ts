@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './services/auth.service';
+import { PopUpComponent } from './shared/pop-up/pop-up.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AuthService } from './services/auth.service';
     RegisterComponent,
     PageNotFoundComponent,
     DashboardComponent,
+    PopUpComponent,
   ],
   imports: [
     BrowserModule,

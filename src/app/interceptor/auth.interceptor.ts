@@ -1,22 +1,11 @@
+import { Injectable } from '@angular/core';
 import {
-  Injectable
-} from '@angular/core';
-import {
-  HttpRequest,
-  HttpResponse,
-  HttpHandler,
-  HttpEvent,
-  HttpErrorResponse,
-  HttpInterceptor
+  HttpRequest, HttpResponse,HttpHandler, HttpEvent, HttpErrorResponse,HttpInterceptor
 } from '@angular/common/http';
 import { AuthService } from "../services/auth.service";
-import {
-  Observable
-} from 'rxjs/Observable';
-
+import {  Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
-
 import { Buffer } from 'buffer';
 import * as crypto from 'crypto-browserify';
 import { Router } from '@angular/router';
@@ -56,8 +45,8 @@ export class AuthInterceptor implements HttpInterceptor {
         if (err.status === 401) {
        
         } else if (err.status === 0) {
-          
-          this.status.setStatus(true, 'Error Occured, Please try again after sometime.', false);
+          console.log('>>>>>>in else if>>>>');
+          // this.status.setStatus(true, 'Error Occured, Please try again after sometime.', false);
         }
 
       }

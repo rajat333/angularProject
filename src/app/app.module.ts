@@ -9,11 +9,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 import  AppRoutes  from './app.routing';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './services/auth.service';
 import { PopUpComponent } from './shared/pop-up/pop-up.component';
@@ -34,10 +31,6 @@ import { PopUpComponent } from './shared/pop-up/pop-up.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatInputModule, 
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule,
     RouterModule.forRoot(AppRoutes),
   ],
   providers: [

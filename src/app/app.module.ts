@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';  // replaces previous Http service
-import { AuthInterceptor } from './interceptor/auth.interceptor'
+import { AuthInterceptor, HTTPStatus } from './interceptor/auth.interceptor'
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -35,6 +35,7 @@ import { PopUpComponent } from './shared/pop-up/pop-up.component';
   ],
   providers: [
     AuthInterceptor,
+    HTTPStatus,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

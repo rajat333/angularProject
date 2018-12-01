@@ -14,11 +14,35 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 
 @Injectable()
+export class HTTPStatus {
+  private requestInFlight$: BehaviorSubject<boolean>;
+  private responsePopUp : BehaviorSubject<any>;
+
+  constructor() {
+    this.requestInFlight$ = new BehaviorSubject(false);
+    this.responsePopUp = new BehaviorSubject({});
+  }
+
+  setHttpStatus(inFlight: boolean) {
+    this.requestInFlight$.next(inFlight);
+  }
+
+
+  setHttpStatus1(status: boolean, errorMsg: String, logout: boolean) {
+    this.responsePopUp.next(status, errorMsg,logout);
+  }
+
+  getHttpStatus(): Observable<boolean> {
+    return this.requestInFlight$.asObservable();
+  }
+}
+
+@Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   public requestPopup: Subject<any> = new Subject<any>();
 
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, private router: Router,private status: HTTPStatus ) {}
 
   getStatus$ =  this.requestPopup.asObservable();
   setStatus(isPopup, error, logout) {
@@ -50,6 +74,7 @@ export class AuthInterceptor implements HttpInterceptor {
           console.log('>>>>>>in else if>>>>');
           if(!navigator.onLine){
             console.log('.>>>>>>with navigator>>>>>>>');
+              this.status.setHttpStatus(false);
               this.setStatus(true, 'Error Occured, Network Error.Please try again later.', false);
           }else{
             console.log('>>>>>>>>>..wirhout navigator');

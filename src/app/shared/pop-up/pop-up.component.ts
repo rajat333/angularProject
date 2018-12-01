@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { AuthInterceptor } from '../../interceptor/auth.interceptor';
+import { AuthInterceptor, HTTPStatus } from '../../interceptor/auth.interceptor';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 
@@ -16,11 +16,14 @@ export class PopUpComponent implements OnInit {
   public enablePopup: boolean = false;
   public isSession: boolean;
   subscription: Subscription;
-  constructor(private _httpStatus: AuthInterceptor, private router: Router) {
+  constructor(private _httpStatus: AuthInterceptor, 
+              private router: Router,
+              private httpStatus: HTTPStatus
+            ) {
 
-    this._httpStatus.getStatus$.subscribe((data) => {
-      console.log('<3333333333333in Subscriber>>>>>>>',data);
-    })
+    // this._httpStatus.getStatus$.subscribe((data) => {
+    //   console.log('<3333333333333in Subscriber>>>>>>>',data);
+    // })
   }
   ngOnInit() {
     console.log('>>>>>>setpop ngonit >>>>>>');
@@ -31,6 +34,10 @@ export class PopUpComponent implements OnInit {
   }
   getSubscribeData(): Observable<any> {
     const popUpValue: any = {};
+    this.httpStatus.getHttpStatus().subscribe((status: boolean) => { 
+      console.log('>>>>INPOP HTTP ACTIVITY>>>>>>>>>>',status);
+    });
+
     this._httpStatus.getStatus$.subscribe((data) => {
       console.log('<<<<>>>>>>>in Subscriber>>>>>>>',data);
       if (Object.keys(data).length > 0) {

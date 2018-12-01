@@ -33,10 +33,16 @@ export class LoginComponent implements OnInit {
  onSubmit(){
    console.log('>>>ON>>>Submit>>>>>>>');
   console.warn(this.loginForm.value);
-  this.service.loginAPI(this.loginForm.value).subscribe( data =>{
-    console.log('>>>>>data>>>>>>>',data);
+  this.service.loginAPI(this.loginForm.value).subscribe( 
+    (data) =>{
+    console.log('Login Success ',data);
     this.route.navigate(['/dashboard']);
-  });   
+  },
+  (err)=>{
+      console.log('>>>>>>login error subscribe');
+  },
+  ()=>{ console.log('> Observer Complete>>>>');
+   });   
   
   
  }

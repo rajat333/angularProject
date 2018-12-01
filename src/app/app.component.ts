@@ -17,10 +17,10 @@ export class AppComponent {
               private httpStatus: HTTPStatus,
             ){
     
-    this._httpStatus.requestPopup.asObservable().subscribe((data) => {
-      console.log('<11111111>in Subscriber>>>>>>>',data);
-    })
-    this.httpStatus.getHttpStatus().subscribe((status: boolean) => { console.log('>>>>>>>>>>>>>>',status)});
+    this.httpStatus.getHttpStatus1().subscribe( (data: any ) =>{ 
+      console.log('FETCH SUBSCRIBER ',data)
+    
+    });
     console.log('>>..in constructor>>>>>>>>');
   }
 

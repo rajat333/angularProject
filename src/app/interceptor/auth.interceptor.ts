@@ -16,11 +16,11 @@ import 'rxjs/add/operator/do';
 @Injectable()
 export class HTTPStatus {
   private requestInFlight$: BehaviorSubject<boolean>;
-  private responsePopUp : BehaviorSubject<any>;
+  private responsePopUp : Subject<any> ;
 
   constructor() {
     this.requestInFlight$ = new BehaviorSubject(false);
-    this.responsePopUp = new BehaviorSubject({});
+    this.responsePopUp =  new Subject<any>();
   }
 
   setHttpStatus(inFlight: boolean) {
@@ -29,26 +29,26 @@ export class HTTPStatus {
 
 
   setHttpStatus1(status: boolean, errorMsg: String, logout: boolean) {
-    this.responsePopUp.next(status, errorMsg,logout);
+    console.log('>>>>>>>In set Http status 11111');
+    this.responsePopUp.next( { status:status, errorMsg: errorMsg,isLogOut: logout });
   }
 
   getHttpStatus(): Observable<boolean> {
     return this.requestInFlight$.asObservable();
+  }
+
+  getHttpStatus1(): Observable<boolean> {
+    console.log('>>>>>>>getHTTP STATUS 1 >>>>');
+    return this.responsePopUp.asObservable();
   }
 }
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  public requestPopup: Subject<any> = new Subject<any>();
-
-  constructor(public auth: AuthService, private router: Router,private status: HTTPStatus ) {}
-
-  getStatus$ =  this.requestPopup.asObservable();
-  setStatus(isPopup, error, logout) {
-    console.log('>>>>>>>In set status>>>>>>>');
-    this.requestPopup.next({ status: isPopup, errorMsg: error, isLogoutSession: logout });
-  }
+  constructor(public auth: AuthService, 
+              private router: Router,
+              private status: HTTPStatus ) {}
 
   intercept(request: HttpRequest < any > , next: HttpHandler): Observable < HttpEvent < any >> {
 
@@ -63,21 +63,24 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want
+        
+        console.log('>>>>>>>>>Network Success>>>>>');
+        // this.status.setHttpStatus1(true, 'Error Occured, Network Error.Please try again later.', false);
+   
       }
     }, (err: any) => { 
       if (err instanceof HttpErrorResponse) {
 
-        console.log('>window navigator',navigator.onLine);
         if (err.status === 401) {
-          console.log('>>>>>>>>>>>>>>>>>401>>>>>>>');
+          console.log('401 ERROR');
         } else if (err.status === 0) {
           console.log('>>>>>>in else if>>>>');
           if(!navigator.onLine){
-            console.log('.>>>>>>with navigator>>>>>>>');
-              this.status.setHttpStatus(false);
-              this.setStatus(true, 'Error Occured, Network Error.Please try again later.', false);
-          }else{
-            console.log('>>>>>>>>>..wirhout navigator');
+            console.log('Offline Mode');
+              // this.status.setHttpStatus(false);
+              this.status.setHttpStatus1(true, 'Error Occured, Network Error.Please try again later.', false);
+            }else{
+            // console.log('>>>>>>>>>..wirhout navigator');
           }
         }
 

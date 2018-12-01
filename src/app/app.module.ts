@@ -13,8 +13,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './services/auth.service';
-// import { PopUpComponent } from './shared/pop-up/pop-up.component';
 import { PopUpComponent } from './shared/pop-up/pop-up.component';
+
+import {MatButtonModule, MatCheckboxModule, 
+   MatInputModule, MatFormFieldModule,
+   MatSelectModule, MatRippleModule} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +36,9 @@ import { PopUpComponent } from './shared/pop-up/pop-up.component';
     HttpClientModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes),
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule, MatFormFieldModule, MatRippleModule, MatSelectModule
   ],
   providers: [
     AuthInterceptor,

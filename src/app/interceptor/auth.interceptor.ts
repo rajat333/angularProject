@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private requestPopup: Subject<any> = new Subject<any>();
 
-  constructor(public auth: AuthService, private router: Router, private status: AuthInterceptor,) {}
+  constructor(public auth: AuthService, private router: Router) {}
 
   getStatus$ =  this.requestPopup.asObservable();
   setStatus(isPopup, error, logout) {
@@ -38,15 +38,20 @@ export class AuthInterceptor implements HttpInterceptor {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want
       }
-    }, (err: any) => {
+    }, (err: any) => { 
       if (err instanceof HttpErrorResponse) {
 
         console.log('>window navigator',navigator.onLine);
         if (err.status === 401) {
-       
+          console.log('>>>>>>>>>>>>>>>>>401>>>>>>>');
         } else if (err.status === 0) {
           console.log('>>>>>>in else if>>>>');
-          // this.status.setStatus(true, 'Error Occured, Please try again after sometime.', false);
+          if(!navigator.onLine){
+            console.log('.>>>>>>with navigator>>>>>>>');
+              this.setStatus(true, 'Error Occured, Network Error.Please try again later.', false);
+          }else{
+            console.log('>>>>>>>>>..wirhout navigator');
+          }
         }
 
       }

@@ -13,8 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './services/auth.service';
+// import { PopUpComponent } from './shared/pop-up/pop-up.component';
 import { PopUpComponent } from './shared/pop-up/pop-up.component';
-
 
 @NgModule({
   declarations: [
@@ -34,12 +34,14 @@ import { PopUpComponent } from './shared/pop-up/pop-up.component';
     RouterModule.forRoot(AppRoutes),
   ],
   providers: [
+  
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
     },
-    AuthService,
+  
   ],
   bootstrap: [AppComponent]
 })

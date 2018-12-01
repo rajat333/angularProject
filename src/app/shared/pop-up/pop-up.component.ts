@@ -29,6 +29,7 @@ export class PopUpComponent implements OnInit {
         popUpValue.enablePopup = this.enablePopup = data.status;
         popUpValue.responseMessage = this.responseMessage = data.errorMsg;
         popUpValue.isSession = this.isSession = data.isLogoutSession;
+        console.log('>>>>>>>>>.infifififi >get subscribe data>>>>>>');
       }
     });
     return popUpValue;

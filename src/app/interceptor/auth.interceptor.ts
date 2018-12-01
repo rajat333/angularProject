@@ -16,12 +16,13 @@ import 'rxjs/add/operator/do';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  private requestPopup: Subject<any> = new Subject<any>();
+  public requestPopup: Subject<any> = new Subject<any>();
 
   constructor(public auth: AuthService, private router: Router) {}
 
   getStatus$ =  this.requestPopup.asObservable();
   setStatus(isPopup, error, logout) {
+    console.log('>>>>>>>In set status>>>>>>>');
     this.requestPopup.next({ status: isPopup, errorMsg: error, isLogoutSession: logout });
   }
 
@@ -34,6 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
     });
 
     // return next.handle(request);
+    //for server response 
     return next.handle(request).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want

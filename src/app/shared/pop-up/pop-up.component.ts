@@ -17,13 +17,22 @@ export class PopUpComponent implements OnInit {
   public isSession: boolean;
   subscription: Subscription;
   constructor(private _httpStatus: AuthInterceptor, private router: Router) {
+
+    this._httpStatus.getStatus$.subscribe((data) => {
+      console.log('<3333333333333in Subscriber>>>>>>>',data);
+    })
   }
   ngOnInit() {
+    console.log('>>>>>>setpop ngonit >>>>>>');
     this.getSubscribeData();
+    this._httpStatus.getStatus$.subscribe((data) => {
+      console.log('<11111111>in Subscriber>>>>>>>',data);
+    })
   }
   getSubscribeData(): Observable<any> {
     const popUpValue: any = {};
     this._httpStatus.getStatus$.subscribe((data) => {
+      console.log('<<<<>>>>>>>in Subscriber>>>>>>>',data);
       if (Object.keys(data).length > 0) {
 
         popUpValue.enablePopup = this.enablePopup = data.status;
@@ -32,6 +41,7 @@ export class PopUpComponent implements OnInit {
         console.log('>>>>>>>>>.infifififi >get subscribe data>>>>>>');
       }
     });
+    console.log('>>>>>>>>>popup value>>>>>>',popUpValue);
     return popUpValue;
   }
   closePopUp(): void {

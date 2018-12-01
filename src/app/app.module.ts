@@ -34,7 +34,7 @@ import { PopUpComponent } from './shared/pop-up/pop-up.component';
     RouterModule.forRoot(AppRoutes),
   ],
   providers: [
-  
+    AuthInterceptor,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,
